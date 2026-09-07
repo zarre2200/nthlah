@@ -640,6 +640,7 @@
         <p>data akademik</p>
           <label for="prodi">Program Studi:</label><br>
             <select id="prodi" name="prodi" form="registration-form" required>
+            <option value="" selected disabled>Program Studi</option>
             <option value="informatika">Informatika</option>
             <option value="mesin">Teknik Mesin</option>
             <option value="elektronika">Teknik Elektronika</option>
@@ -683,6 +684,7 @@
         <script>
             // Referensi elemen yang dipakai oleh interaksi halaman.
             const fields = [...document.querySelectorAll('input:not([type="radio"]), select, textarea')];
+            const genderOptions = [...document.querySelectorAll('input[name="jk"]')];
             const progressText = document.querySelector('.form-progress b');
             const progressValue = document.querySelector('.progress-value');
             const notice = document.querySelector('.notice');
@@ -692,8 +694,10 @@
             const genderLabels = document.querySelectorAll('input[type="radio"] + label');
             // Menghitung jumlah field yang sudah diisi.
             const updateProgress = () => {
-                const completed = fields.filter((field) => field.value.trim()).length;
-                const percentage = Math.round((completed / fields.length) * 100);
+                const completedFields = fields.filter((field) => field.value.trim()).length;
+                const completedGender = genderOptions.some((option) => option.checked) ? 1 : 0;
+                const totalFields = fields.length + 1;
+                const percentage = Math.round(((completedFields + completedGender) / totalFields) * 100);
                 progressText.textContent = `${percentage}%`;
                 progressValue.style.width = `${percentage}%`;
             };
@@ -707,7 +711,11 @@
                 focusToggle.textContent = document.body.classList.contains('focus-mode') ? 'Keluar fokus' : 'Mode fokus';
             });
             genderLabels.forEach((label) => label.addEventListener('click', () => label.previousElementSibling.click()));
-            fields.forEach((field) => field.addEventListener('input', updateProgress));
+            fields.forEach((field) => {
+                field.addEventListener('input', updateProgress);
+                field.addEventListener('change', updateProgress);
+            });
+            genderOptions.forEach((option) => option.addEventListener('change', updateProgress));
             document.querySelector('#registration-form').addEventListener('submit', (event) => {
                 event.preventDefault();
                 notice.classList.add('show');
