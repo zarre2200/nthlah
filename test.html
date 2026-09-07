@@ -616,30 +616,30 @@
             Data pribadi
         </p>
             <label>nama lengkap:</label><br>
-            <input id="nama-lengkap" type="text" name="nama lengkap" placeholder=" masukkan nama lengkap">
+            <input id="nama-lengkap" type="text" name="nama lengkap" placeholder=" masukkan nama lengkap" form="registration-form" required>
         <br>
             <label for="nim">NIM:</label><br>
-            <input id="nim" type="number" name="masukkan NIM" placeholder="masukkan NIM">
+            <input id="nim" type="number" name="masukkan NIM" placeholder="masukkan NIM" form="registration-form" required>
         <br>
             <label for="email">email:</label><br>
-            <input id="email" type="email" name="contoh" placeholder="contoh@gmail.com">
+            <input id="email" type="email" name="contoh" placeholder="contoh@gmail.com" form="registration-form" required>
         <br>
             <label for="password">password:</label><br>
-            <input type="password" id="password" name="password" placeholder="">
+            <input type="password" id="password" name="password" placeholder="" form="registration-form" minlength="8" required>
         <br>
             <label for="tanggal-lahir">tanggal lahir:</label>
-            <input id="tanggal-lahir" type="date" name="tanggal lahir">
+            <input id="tanggal-lahir" type="date" name="tanggal lahir" form="registration-form" required>
         <br>
             <label>jenis kelamin</label>
             <br>
-            <input type="radio" name="jk" value="L">
+            <input type="radio" name="jk" value="L" form="registration-form" required>
             <label>laki-laki</label>
-            <input type="radio" name="jk" value="P">
+            <input type="radio" name="jk" value="P" form="registration-form">
             <label>perempuan</label>
         <br>
         <p>data akademik</p>
           <label for="prodi">Program Studi:</label><br>
-            <select id="prodi" name="prodi">
+            <select id="prodi" name="prodi" form="registration-form" required>
             <option value="informatika">Informatika</option>
             <option value="mesin">Teknik Mesin</option>
             <option value="elektronika">Teknik Elektronika</option>
@@ -647,15 +647,15 @@
             <br><br>
         <br>
             <label for="alamat">Alamat:</label><br>
-            <textarea id="alamat" name="alamat" rows="4"></textarea>
+            <textarea id="alamat" name="alamat" rows="4" form="registration-form" required></textarea>
         <br><br>
         <p style="margin-bottom: 5px;">upload foto :</p>
-        <form action= "/action_page.php">
-            <input type="file" id="myfile" name="filename">
+        <form id="registration-form" action="/action_page.php" method="post" enctype="multipart/form-data">
+            <input type="file" id="myfile" name="filename" form="registration-form">
         </form>
         <br><br>
-            <button type="submit">simpan</button>
-            <button type="reset">Reset</button>
+            <button type="submit" form="registration-form">simpan</button>
+            <button type="reset" form="registration-form">Reset</button>
         <span class="form-accent" aria-hidden="true"></span>
         <aside class="form-progress" aria-live="polite">
             <span>KELENGKAPAN FORMULIR <b>0%</b></span>
@@ -708,11 +708,12 @@
             });
             genderLabels.forEach((label) => label.addEventListener('click', () => label.previousElementSibling.click()));
             fields.forEach((field) => field.addEventListener('input', updateProgress));
-            document.querySelector('button[type="reset"]').addEventListener('click', () => setTimeout(updateProgress));
-            document.querySelector('button[type="submit"]').addEventListener('click', () => {
+            document.querySelector('#registration-form').addEventListener('submit', (event) => {
+                event.preventDefault();
                 notice.classList.add('show');
                 setTimeout(() => notice.classList.remove('show'), 2600);
             });
+            document.querySelector('button[type="reset"]').addEventListener('click', () => setTimeout(updateProgress));
             updateProgress();
 
             // Game Snake: gerakan, tabrakan, skor, dan gambar canvas.
@@ -807,7 +808,7 @@
                     left: { x: -1, y: 0 }, right: { x: 1, y: 0 }
                 };
                 const candidate = directions[newDirection];
-                if (candidate && candidate.x !== -direction.x || candidate && candidate.y !== -direction.y) nextDirection = candidate;
+                if (candidate && (candidate.x !== -direction.x || candidate.y !== -direction.y)) nextDirection = candidate;
             };
 
             snakeStart.addEventListener('click', () => {
@@ -820,7 +821,8 @@
             document.querySelectorAll('[data-direction]').forEach((button) => button.addEventListener('click', () => changeDirection(button.dataset.direction)));
             document.addEventListener('keydown', (event) => {
                 const keyDirections = { ArrowUp: 'up', w: 'up', ArrowDown: 'down', s: 'down', ArrowLeft: 'left', a: 'left', ArrowRight: 'right', d: 'right' };
-                if (keyDirections[event.key]) { event.preventDefault(); changeDirection(keyDirections[event.key]); }
+                const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+                if (keyDirections[key]) { event.preventDefault(); changeDirection(keyDirections[key]); }
             });
             resetSnake();
         </script>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>soal 1 pemrograman web dasar</title>
+    </head>
+    <body>
+        <h1>Formulir Pendaftaran Mahasiswa</h1>
+        <p>silahkan isi formulir berikut dengan data diri anda secara lengkap dan benar<br>
+            Data pribadi
+        </p>
+            <label>nama lengkap:</label><br>
+            <input type="text" name="nama lengkap" placeholder=" masukkan nama lengkap">
+        <br>
+            <label>NIM:</lebel><br>
+            <input type="number" name="masukkan NIM" placeholder="masukkan NIM">
+        <br>
+            <label>email:</label><br>
+            <input type="text" name="contoh" placeholders="contoh@gmail.com">
+        <br>
+            <form>
+                <label for="password">password:</label><br>
+            <input type="password" id="password" name="password" placeholder="">
+            </form>
+        <br>
+            <label>tanggal lahir:</label>
+            <input type="date">
+        <br>
+            <label>jenis kelamin</label>
+            <br>
+            <input type="radio" name="jk" value="L">
+            <label>laki-laki</label>
+            <input type="radio" name="jk" value="P">
+            <label>perempuan</label>
+        <br>
+        <p>data akademik</p>
+          <label for="prodi">Program Studi:</label><br>
+            <select id="prodi" name="prodi">
+            <option value="informatika">Informatika</option>
+            <option value="mesin">Teknik Mesin</option>
+            <option value="elektronika">Teknik Elektronika</option>
+            </select>
+            <br><br>
+        <br>
+            <label for="alamat">Alamat:</label><br>
+            <textarea id="alamat" name="alamat" rows="4"></textarea>
+            </form>
+        <br><br>
+        <p style="margin-bottom: 5px;">upload foto :</p>
+        <form action= "/action_page.php">
+            <input type="file" id="myfile" name="filename">
+        </form>
+        <br><br>
+            <button type="submit">simpan</button>
+            <button type="reset">Reset</button>
+    </body>
+</html>
