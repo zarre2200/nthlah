@@ -4,6 +4,7 @@
         <title>soal 1 pemrograman web dasar</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
+            /* Warna dan efek dasar halaman. */
             :root {
                 --ink: #19242a;
                 --muted: #65747a;
@@ -18,8 +19,12 @@
 
             * { box-sizing: border-box; }
 
+            ::selection { color: white; background: var(--coral); }
+            :focus-visible { outline: 3px solid rgba(231, 120, 93, .48); outline-offset: 3px; }
+
             html { min-height: 100%; }
 
+            /* Layout utama dan latar belakang dekoratif. */
             body {
                 position: relative;
                 isolation: isolate;
@@ -108,6 +113,7 @@
                 text-transform: uppercase;
             }
 
+            /* Gaya bersama untuk semua kontrol formulir. */
             input:not([type="radio"]):not([type="file"]),
             select,
             textarea {
@@ -135,15 +141,50 @@
             }
 
             input[type="radio"] {
-                accent-color: var(--mint);
-                margin: 0 4px 0 10px;
+                appearance: none;
+                width: 18px;
+                height: 18px;
+                margin: 12px 5px 0 10px;
+                border: 2px solid #b8c9c1;
+                border-radius: 50%;
+                vertical-align: -4px;
+                background: white;
+                cursor: pointer;
+                transition: border-color .2s, background .2s, box-shadow .2s;
             }
 
             input[type="radio"] + label {
-                margin: 12px 4px 0 0;
+                margin: 12px 7px 0 0;
+                padding: 10px 14px;
+                border: 1px solid var(--line);
+                border-radius: 10px;
+                color: var(--muted);
+                background: rgba(255, 255, 255, .55);
                 font-weight: 400;
                 letter-spacing: 0;
                 text-transform: none;
+                cursor: pointer;
+                transition: border-color .2s, color .2s, background .2s, transform .2s;
+            }
+
+            input[type="radio"]:checked {
+                border-color: var(--coral);
+                background: var(--coral);
+                box-shadow: inset 0 0 0 4px white;
+            }
+
+            input[type="radio"]:checked + label {
+                border-color: var(--coral);
+                color: #a34f3d;
+                background: rgba(231, 120, 93, .13);
+                transform: translateY(-2px);
+            }
+
+            input[type="radio"]:hover { border-color: var(--mint); }
+            input[type="radio"]:focus-visible + label { outline: 3px solid rgba(231, 120, 93, .32); outline-offset: 3px; }
+
+            @media (max-width: 380px) {
+                input[type="radio"] + label { padding: 9px 10px; }
             }
 
             input[type="file"] {
@@ -157,6 +198,21 @@
                 font: 14px Arial, sans-serif;
             }
 
+            input[type="file"]::file-selector-button {
+                margin-right: 10px;
+                padding: 8px 12px;
+                border: 0;
+                border-radius: 7px;
+                color: white;
+                background: var(--mint-dark);
+                cursor: pointer;
+                font: 700 11px Arial, sans-serif;
+                letter-spacing: .04em;
+            }
+
+            input[type="file"]::file-selector-button:hover { background: var(--coral); }
+
+            /* Tombol aksi utama dan tombol reset. */
             button {
                 margin: 12px 8px 0 0;
                 padding: 13px 22px;
@@ -186,6 +242,8 @@
             }
 
             button[type="reset"]:hover { color: white; }
+
+            button:active { transform: translateY(1px) scale(.98); }
 
             .form-accent {
                 position: absolute;
@@ -311,6 +369,7 @@
                 50% { opacity: .55; transform: scale(.78); }
             }
 
+            /* Penyesuaian tampilan pada layar kecil. */
             @media (max-width: 640px) {
                 body { padding: 56px 25px 110px; }
                 body::after { right: 25px; font-size: 9px; }
@@ -339,21 +398,19 @@
             Data pribadi
         </p>
             <label>nama lengkap:</label><br>
-            <input type="text" name="nama lengkap" placeholder=" masukkan nama lengkap">
+            <input id="nama-lengkap" type="text" name="nama lengkap" placeholder=" masukkan nama lengkap">
         <br>
-            <label>NIM:</lebel><br>
-            <input type="number" name="masukkan NIM" placeholder="masukkan NIM">
+            <label for="nim">NIM:</label><br>
+            <input id="nim" type="number" name="masukkan NIM" placeholder="masukkan NIM">
         <br>
-            <label>email:</label><br>
-            <input type="text" name="contoh" placeholders="contoh@gmail.com">
+            <label for="email">email:</label><br>
+            <input id="email" type="email" name="contoh" placeholder="contoh@gmail.com">
         <br>
-            <form>
-                <label for="password">password:</label><br>
+            <label for="password">password:</label><br>
             <input type="password" id="password" name="password" placeholder="">
-            </form>
         <br>
-            <label>tanggal lahir:</label>
-            <input type="date">
+            <label for="tanggal-lahir">tanggal lahir:</label>
+            <input id="tanggal-lahir" type="date" name="tanggal lahir">
         <br>
             <label>jenis kelamin</label>
             <br>
@@ -373,7 +430,6 @@
         <br>
             <label for="alamat">Alamat:</label><br>
             <textarea id="alamat" name="alamat" rows="4"></textarea>
-            </form>
         <br><br>
         <p style="margin-bottom: 5px;">upload foto :</p>
         <form action= "/action_page.php">
@@ -389,6 +445,7 @@
         </aside>
         <div class="notice" role="status">Data siap disimpan.</div>
         <script>
+            // Referensi elemen yang dipakai oleh interaksi halaman.
             const fields = [...document.querySelectorAll('input:not([type="radio"]), select, textarea')];
             const progressText = document.querySelector('.form-progress b');
             const progressValue = document.querySelector('.progress-value');
@@ -396,19 +453,24 @@
             const nameField = document.querySelector('input[name="nama lengkap"]');
             const previewName = document.querySelector('.preview-name');
             const focusToggle = document.querySelector('.focus-toggle');
+            const genderLabels = document.querySelectorAll('input[type="radio"] + label');
+            // Menghitung jumlah field yang sudah diisi.
             const updateProgress = () => {
                 const completed = fields.filter((field) => field.value.trim()).length;
                 const percentage = Math.round((completed / fields.length) * 100);
                 progressText.textContent = `${percentage}%`;
                 progressValue.style.width = `${percentage}%`;
             };
+            // Menampilkan nama pengguna pada kartu identitas.
             nameField.addEventListener('input', () => {
                 previewName.textContent = nameField.value.trim() || 'Nama kamu';
             });
+            // Mengaktifkan atau menonaktifkan tampilan fokus.
             focusToggle.addEventListener('click', () => {
                 document.body.classList.toggle('focus-mode');
                 focusToggle.textContent = document.body.classList.contains('focus-mode') ? 'Keluar fokus' : 'Mode fokus';
             });
+            genderLabels.forEach((label) => label.addEventListener('click', () => label.previousElementSibling.click()));
             fields.forEach((field) => field.addEventListener('input', updateProgress));
             document.querySelector('button[type="reset"]').addEventListener('click', () => setTimeout(updateProgress));
             document.querySelector('button[type="submit"]').addEventListener('click', () => {
