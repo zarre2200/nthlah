@@ -381,6 +381,224 @@
                 .status-bar { margin-top: -18px; }
                 .identity-preview { position: relative; top: auto; right: auto; width: 100%; margin: 0 0 28px; transform: rotate(-1deg); }
             }
+
+            /* Hacker theme: terminal gelap dengan aksen neon. */
+            :root {
+                --ink: #d9ffe9;
+                --muted: #78aa91;
+                --paper: rgba(5, 18, 15, .94);
+                --line: #174d3b;
+                --mint: #00ff9d;
+                --mint-dark: #00c879;
+                --coral: #00e5ff;
+                --yellow: #c6ff00;
+                --shadow: 0 24px 70px rgba(0, 255, 157, .12);
+            }
+
+            html {
+                background: #020806;
+                scroll-behavior: smooth;
+            }
+
+            body {
+                color: var(--ink);
+                background-color: #020806;
+                background-image:
+                    linear-gradient(rgba(0, 255, 157, .045) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 255, 157, .045) 1px, transparent 1px),
+                    radial-gradient(circle at 50% 0%, rgba(0, 255, 157, .12), transparent 48%);
+                background-size: 28px 28px, 28px 28px, 100% 100%;
+                font-family: "Courier New", Courier, monospace;
+            }
+
+            body::before {
+                border-color: rgba(0, 255, 157, .28);
+                border-radius: 4px;
+                background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(0, 255, 157, .018) 4px 5px);
+                box-shadow: inset 0 0 80px rgba(0, 255, 157, .07), 0 0 24px rgba(0, 255, 157, .05);
+            }
+
+            body::after {
+                content: "SYSTEM ONLINE // 2026";
+                color: var(--mint);
+                font-family: "Courier New", Courier, monospace;
+                text-shadow: 0 0 10px rgba(0, 255, 157, .7);
+            }
+
+            h1 {
+                color: var(--mint);
+                font-family: "Courier New", Courier, monospace;
+                font-size: clamp(2rem, 5vw, 4rem);
+                font-weight: 700;
+                letter-spacing: .02em;
+                text-transform: uppercase;
+                text-shadow: 0 0 8px rgba(0, 255, 157, .7), 0 0 28px rgba(0, 255, 157, .22);
+            }
+
+            h1::before { content: ">_ "; color: var(--coral); }
+            h1::after {
+                width: 100%;
+                height: 2px;
+                margin-top: 22px;
+                border-radius: 0;
+                background: linear-gradient(90deg, var(--mint), transparent);
+                box-shadow: 0 0 12px var(--mint);
+                transform: none;
+            }
+
+            p { color: var(--muted); font-family: "Courier New", Courier, monospace; }
+            body > p:first-of-type {
+                border-left-color: var(--mint);
+                background: rgba(0, 255, 157, .045);
+                box-shadow: inset 0 0 25px rgba(0, 255, 157, .035);
+            }
+            body > p:nth-of-type(2) { color: var(--mint); }
+
+            label { color: #a8e8c5; font-family: "Courier New", Courier, monospace; }
+            input:not([type="radio"]):not([type="file"]), select, textarea {
+                border-color: var(--line);
+                border-radius: 3px;
+                color: var(--mint);
+                background: rgba(1, 12, 9, .88);
+                font-family: "Courier New", Courier, monospace;
+                caret-color: var(--coral);
+                box-shadow: inset 0 0 16px rgba(0, 255, 157, .035);
+            }
+            input:not([type="radio"]):not([type="file"]):focus, select:focus, textarea:focus {
+                border-color: var(--mint);
+                background: #03130d;
+                box-shadow: 0 0 0 3px rgba(0, 255, 157, .1), 0 0 16px rgba(0, 255, 157, .16);
+            }
+
+            input[type="radio"] + label {
+                border-color: var(--line);
+                border-radius: 3px;
+                color: var(--muted);
+                background: rgba(0, 255, 157, .035);
+            }
+            input[type="radio"]:checked { border-color: var(--coral); background: var(--coral); }
+            input[type="radio"]:checked + label {
+                border-color: var(--coral);
+                color: var(--coral);
+                background: rgba(0, 229, 255, .08);
+                box-shadow: 0 0 14px rgba(0, 229, 255, .12);
+            }
+
+            input[type="file"] {
+                border-color: var(--mint);
+                border-radius: 3px;
+                color: var(--muted);
+                background: rgba(0, 255, 157, .03);
+                font-family: "Courier New", monospace;
+            }
+            input[type="file"]::file-selector-button {
+                border-radius: 2px;
+                color: #00150c;
+                background: var(--mint);
+                font-family: "Courier New", monospace;
+            }
+
+            button {
+                border-radius: 3px;
+                color: #00150c;
+                background: var(--mint);
+                font-family: "Courier New", monospace;
+                box-shadow: 0 0 16px rgba(0, 255, 157, .2);
+            }
+            button:hover { color: #00150c; background: var(--coral); box-shadow: 0 0 20px rgba(0, 229, 255, .35); }
+            button[type="reset"] { color: var(--mint); border-color: var(--mint); background: transparent; }
+            button[type="reset"]:hover { color: #00150c; }
+
+            .status-bar, .form-progress, .notice {
+                border-color: rgba(0, 255, 157, .28);
+                border-radius: 3px;
+                background: rgba(2, 18, 13, .9);
+                box-shadow: 0 0 22px rgba(0, 255, 157, .08);
+            }
+            .status-live, .form-progress span { color: var(--mint); }
+            .status-live::before { background: var(--mint); box-shadow: 0 0 0 5px rgba(0, 255, 157, .12), 0 0 14px var(--mint); }
+            .focus-toggle { color: var(--mint); background: transparent; border-color: var(--mint); box-shadow: none; }
+            .identity-preview { border: 1px solid var(--mint); border-radius: 3px; background: #031a11; box-shadow: 0 0 25px rgba(0, 255, 157, .18); }
+            .preview-kicker, .preview-name { font-family: "Courier New", monospace; }
+            .preview-line { background: var(--coral); box-shadow: 0 0 9px var(--coral); }
+            .progress-track { background: #123629; }
+            .progress-value { background: var(--mint); box-shadow: 0 0 10px var(--mint); }
+            .notice { color: var(--mint); }
+
+            @media (prefers-reduced-motion: no-preference) {
+                h1 { animation: terminal-flicker 6s infinite; }
+            }
+
+            @keyframes terminal-flicker {
+                0%, 96%, 100% { opacity: 1; }
+                97% { opacity: .72; }
+                98% { opacity: .96; }
+            }
+
+            /* Panel game Snake bergaya terminal. */
+            .snake-panel {
+                position: relative;
+                margin-top: 72px;
+                padding: 22px;
+                border: 1px solid rgba(0, 255, 157, .35);
+                border-radius: 4px;
+                background: rgba(1, 12, 9, .92);
+                box-shadow: 0 0 30px rgba(0, 255, 157, .1), inset 0 0 30px rgba(0, 255, 157, .035);
+            }
+
+            .snake-panel::before {
+                content: "MINI GAME // SNAKE_PROTOCOL";
+                display: block;
+                margin-bottom: 15px;
+                color: var(--mint);
+                font-size: 11px;
+                letter-spacing: .12em;
+            }
+
+            .snake-head {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                margin-bottom: 14px;
+            }
+
+            .snake-head h2 { margin: 0; color: var(--coral); font-size: 18px; }
+            .snake-score { color: var(--yellow); font-size: 13px; }
+            .snake-score strong { color: var(--mint); font-size: 18px; }
+
+            #snake-canvas {
+                display: block;
+                width: min(100%, 500px);
+                aspect-ratio: 1;
+                margin: 0 auto;
+                border: 1px solid var(--mint);
+                background: #010a07;
+                box-shadow: 0 0 18px rgba(0, 255, 157, .18);
+                image-rendering: pixelated;
+            }
+
+            .snake-message {
+                min-height: 22px;
+                margin: 14px 0 4px;
+                color: var(--muted);
+                text-align: center;
+                font-size: 12px;
+            }
+
+            .snake-actions { display: flex; justify-content: center; gap: 10px; margin-top: 12px; }
+            .snake-actions button { margin: 0; padding: 9px 14px; font-size: 11px; }
+            .snake-pad { display: grid; grid-template-columns: repeat(3, 42px); justify-content: center; gap: 5px; margin-top: 16px; }
+            .snake-pad button { width: 42px; height: 36px; margin: 0; padding: 0; font-size: 16px; }
+            .snake-pad button:nth-child(1) { grid-column: 2; }
+            .snake-pad button:nth-child(2) { grid-column: 1; grid-row: 2; }
+            .snake-pad button:nth-child(3) { grid-column: 2; grid-row: 2; }
+            .snake-pad button:nth-child(4) { grid-column: 3; grid-row: 2; }
+
+            @media (max-width: 640px) {
+                .snake-panel { margin-top: 52px; padding: 16px; }
+                .snake-head { align-items: flex-start; flex-direction: column; gap: 5px; }
+            }
         </style>
     </head>
     <body>
@@ -444,6 +662,24 @@
             <div class="progress-track"><div class="progress-value"></div></div>
         </aside>
         <div class="notice" role="status">Data siap disimpan.</div>
+        <section class="snake-panel" aria-label="Game Snake">
+            <div class="snake-head">
+                <h2>&gt; SNAKE.EXE</h2>
+                <div class="snake-score">SCORE: <strong id="snake-score">0</strong></div>
+            </div>
+            <canvas id="snake-canvas" width="400" height="400" aria-label="Papan permainan Snake"></canvas>
+            <p class="snake-message" id="snake-message">Tekan MULAI, lalu gunakan tombol panah atau WASD.</p>
+            <div class="snake-actions">
+                <button id="snake-start" type="button">Mulai</button>
+                <button id="snake-reset" type="button">Reset</button>
+            </div>
+            <div class="snake-pad" aria-label="Kontrol arah Snake">
+                <button type="button" data-direction="up" aria-label="Atas">&#8593;</button>
+                <button type="button" data-direction="left" aria-label="Kiri">&#8592;</button>
+                <button type="button" data-direction="down" aria-label="Bawah">&#8595;</button>
+                <button type="button" data-direction="right" aria-label="Kanan">&#8594;</button>
+            </div>
+        </section>
         <script>
             // Referensi elemen yang dipakai oleh interaksi halaman.
             const fields = [...document.querySelectorAll('input:not([type="radio"]), select, textarea')];
@@ -478,6 +714,115 @@
                 setTimeout(() => notice.classList.remove('show'), 2600);
             });
             updateProgress();
+
+            // Game Snake: gerakan, tabrakan, skor, dan gambar canvas.
+            const snakeCanvas = document.querySelector('#snake-canvas');
+            const snakeContext = snakeCanvas.getContext('2d');
+            const snakeScore = document.querySelector('#snake-score');
+            const snakeMessage = document.querySelector('#snake-message');
+            const snakeStart = document.querySelector('#snake-start');
+            const snakeReset = document.querySelector('#snake-reset');
+            const gridSize = 20;
+            const tileSize = snakeCanvas.width / gridSize;
+            let snake = [];
+            let food = {};
+            let direction = { x: 1, y: 0 };
+            let nextDirection = { x: 1, y: 0 };
+            let score = 0;
+            let snakeTimer;
+            let gameRunning = false;
+
+            const randomFood = () => {
+                do {
+                    food = {
+                        x: Math.floor(Math.random() * gridSize),
+                        y: Math.floor(Math.random() * gridSize)
+                    };
+                } while (snake.some((segment) => segment.x === food.x && segment.y === food.y));
+            };
+
+            const drawSnake = () => {
+                snakeContext.fillStyle = '#010a07';
+                snakeContext.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+                snakeContext.strokeStyle = 'rgba(0, 255, 157, .07)';
+                for (let line = 0; line <= gridSize; line += 1) {
+                    snakeContext.beginPath();
+                    snakeContext.moveTo(line * tileSize, 0);
+                    snakeContext.lineTo(line * tileSize, snakeCanvas.height);
+                    snakeContext.moveTo(0, line * tileSize);
+                    snakeContext.lineTo(snakeCanvas.width, line * tileSize);
+                    snakeContext.stroke();
+                }
+                snakeContext.fillStyle = '#00e5ff';
+                snakeContext.shadowColor = '#00e5ff';
+                snakeContext.shadowBlur = 12;
+                snakeContext.fillRect(food.x * tileSize + 4, food.y * tileSize + 4, tileSize - 8, tileSize - 8);
+                snake.forEach((segment, index) => {
+                    snakeContext.fillStyle = index === 0 ? '#c6ff00' : '#00ff9d';
+                    snakeContext.shadowColor = snakeContext.fillStyle;
+                    snakeContext.fillRect(segment.x * tileSize + 2, segment.y * tileSize + 2, tileSize - 4, tileSize - 4);
+                });
+                snakeContext.shadowBlur = 0;
+            };
+
+            const resetSnake = () => {
+                clearInterval(snakeTimer);
+                snake = [{ x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 }];
+                direction = { x: 1, y: 0 };
+                nextDirection = { x: 1, y: 0 };
+                score = 0;
+                gameRunning = false;
+                snakeScore.textContent = score;
+                snakeMessage.textContent = 'Tekan MULAI, lalu gunakan tombol panah atau WASD.';
+                randomFood();
+                drawSnake();
+            };
+
+            const endSnake = () => {
+                clearInterval(snakeTimer);
+                gameRunning = false;
+                snakeMessage.textContent = `GAME OVER // skor akhir: ${score}. Tekan RESET untuk mencoba lagi.`;
+            };
+
+            const moveSnake = () => {
+                direction = nextDirection;
+                const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
+                const hitWall = head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize;
+                const hitSelf = snake.some((segment) => segment.x === head.x && segment.y === head.y);
+                if (hitWall || hitSelf) { endSnake(); return; }
+                snake.unshift(head);
+                if (head.x === food.x && head.y === food.y) {
+                    score += 10;
+                    snakeScore.textContent = score;
+                    randomFood();
+                } else {
+                    snake.pop();
+                }
+                drawSnake();
+            };
+
+            const changeDirection = (newDirection) => {
+                const directions = {
+                    up: { x: 0, y: -1 }, down: { x: 0, y: 1 },
+                    left: { x: -1, y: 0 }, right: { x: 1, y: 0 }
+                };
+                const candidate = directions[newDirection];
+                if (candidate && candidate.x !== -direction.x || candidate && candidate.y !== -direction.y) nextDirection = candidate;
+            };
+
+            snakeStart.addEventListener('click', () => {
+                if (gameRunning) return;
+                gameRunning = true;
+                snakeMessage.textContent = 'SYSTEM RUNNING // kumpulkan data cyan.';
+                snakeTimer = setInterval(moveSnake, 125);
+            });
+            snakeReset.addEventListener('click', resetSnake);
+            document.querySelectorAll('[data-direction]').forEach((button) => button.addEventListener('click', () => changeDirection(button.dataset.direction)));
+            document.addEventListener('keydown', (event) => {
+                const keyDirections = { ArrowUp: 'up', w: 'up', ArrowDown: 'down', s: 'down', ArrowLeft: 'left', a: 'left', ArrowRight: 'right', d: 'right' };
+                if (keyDirections[event.key]) { event.preventDefault(); changeDirection(keyDirections[event.key]); }
+            });
+            resetSnake();
         </script>
     </body>
 </html>
