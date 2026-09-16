@@ -980,16 +980,16 @@ button[type="reset"]:hover {
 @keyframes danger-pulse {
   0%,
   100% {
-    border-color: rgba(255, 45, 85, 0.55);
+    border-color: var(--difficulty-border, rgba(255, 45, 85, 0.55));
     box-shadow:
-      0 0 30px rgba(255, 45, 85, 0.12),
+      0 0 30px var(--difficulty-glow, rgba(255, 45, 85, 0.12)),
       inset 0 0 30px rgba(0, 255, 157, 0.055);
   }
   50% {
-    border-color: rgba(255, 45, 85, 1);
+    border-color: var(--difficulty-border, rgba(255, 45, 85, 1));
     box-shadow:
-      0 0 46px rgba(255, 0, 64, 0.42),
-      inset 0 0 42px rgba(255, 45, 85, 0.12);
+      0 0 46px var(--difficulty-glow, rgba(255, 0, 64, 0.42)),
+      inset 0 0 42px var(--difficulty-glow, rgba(255, 45, 85, 0.12));
   }
 }
 
@@ -1041,6 +1041,26 @@ button[type="reset"]:hover {
   box-shadow:
     0 0 30px rgba(255, 45, 85, 0.12),
     inset 0 0 30px rgba(0, 255, 157, 0.055);
+}
+body[data-difficulty="easy"] {
+  --difficulty-border: #39ff14;
+  --difficulty-glow: rgba(57, 255, 20, 0.45);
+}
+body[data-difficulty="medium"] {
+  --difficulty-border: #00b7ff;
+  --difficulty-glow: rgba(0, 183, 255, 0.45);
+}
+body[data-difficulty="hard"] {
+  --difficulty-border: #ff1744;
+  --difficulty-glow: rgba(255, 23, 68, 0.55);
+}
+body[data-difficulty] .snake-panel,
+body[data-difficulty] #snake-canvas,
+body[data-difficulty] #mine-board,
+body[data-difficulty] #tetris-canvas,
+body[data-difficulty] #dino-canvas {
+  border-color: var(--difficulty-border);
+  box-shadow: 0 0 18px var(--difficulty-glow);
 }
 .snake-panel::after {
   position: absolute;
