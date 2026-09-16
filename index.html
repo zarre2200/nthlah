@@ -232,8 +232,8 @@
             };
             const savedDifficulty = localStorage.getItem('registration-difficulty');
             if (difficultySettings[savedDifficulty]) difficultySelect.value = savedDifficulty;
+            document.body.classList.add(`difficulty-${difficultySelect.value}`);
             const difficulty = difficultySettings[difficultySelect.value];
-            document.body.dataset.difficulty = difficultySelect.value;
             difficultySelect.addEventListener('change', () => {
                 localStorage.setItem('registration-difficulty', difficultySelect.value);
                 window.location.reload();

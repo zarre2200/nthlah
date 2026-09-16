@@ -980,16 +980,16 @@ button[type="reset"]:hover {
 @keyframes danger-pulse {
   0%,
   100% {
-    border-color: var(--difficulty-border, rgba(255, 45, 85, 0.55));
+    border-color: rgba(255, 45, 85, 0.55);
     box-shadow:
-      0 0 30px var(--difficulty-glow, rgba(255, 45, 85, 0.12)),
+      0 0 30px rgba(255, 45, 85, 0.12),
       inset 0 0 30px rgba(0, 255, 157, 0.055);
   }
   50% {
-    border-color: var(--difficulty-border, rgba(255, 45, 85, 1));
+    border-color: rgba(255, 45, 85, 1);
     box-shadow:
-      0 0 46px var(--difficulty-glow, rgba(255, 0, 64, 0.42)),
-      inset 0 0 42px var(--difficulty-glow, rgba(255, 45, 85, 0.12));
+      0 0 46px rgba(255, 0, 64, 0.42),
+      inset 0 0 42px rgba(255, 45, 85, 0.12);
   }
 }
 
@@ -1042,25 +1042,71 @@ button[type="reset"]:hover {
     0 0 30px rgba(255, 45, 85, 0.12),
     inset 0 0 30px rgba(0, 255, 157, 0.055);
 }
-body[data-difficulty="easy"] {
-  --difficulty-border: #39ff14;
-  --difficulty-glow: rgba(57, 255, 20, 0.45);
+
+body.difficulty-easy .snake-panel {
+  border-color: #00ff66;
+  box-shadow:
+    0 0 30px rgba(0, 255, 102, 0.16),
+    inset 0 0 30px rgba(0, 255, 157, 0.055);
 }
-body[data-difficulty="medium"] {
-  --difficulty-border: #00b7ff;
-  --difficulty-glow: rgba(0, 183, 255, 0.45);
+
+body.difficulty-medium .snake-panel {
+  border-color: #00aaff;
+  box-shadow:
+    0 0 30px rgba(0, 170, 255, 0.18),
+    inset 0 0 30px rgba(0, 229, 255, 0.06);
 }
-body[data-difficulty="hard"] {
-  --difficulty-border: #ff1744;
-  --difficulty-glow: rgba(255, 23, 68, 0.55);
+
+body.difficulty-hard .snake-panel {
+  border-color: #ff1744;
+  box-shadow:
+    0 0 34px rgba(255, 23, 68, 0.24),
+    inset 0 0 34px rgba(255, 23, 68, 0.08);
 }
-body[data-difficulty] .snake-panel,
-body[data-difficulty] #snake-canvas,
-body[data-difficulty] #mine-board,
-body[data-difficulty] #tetris-canvas,
-body[data-difficulty] #dino-canvas {
-  border-color: var(--difficulty-border);
-  box-shadow: 0 0 18px var(--difficulty-glow);
+
+body.difficulty-easy .game-panel:not([hidden]) {
+  animation-name: panel-rise, easy-pulse;
+}
+
+body.difficulty-medium .game-panel:not([hidden]) {
+  animation-name: panel-rise, medium-pulse;
+}
+
+body.difficulty-hard .game-panel:not([hidden]) {
+  animation-name: panel-rise, hard-pulse;
+}
+
+@keyframes easy-pulse {
+  0%,
+  100% {
+    border-color: rgba(0, 255, 102, 0.65);
+  }
+  50% {
+    border-color: #00ff66;
+    box-shadow: 0 0 38px rgba(0, 255, 102, 0.38);
+  }
+}
+
+@keyframes medium-pulse {
+  0%,
+  100% {
+    border-color: rgba(0, 170, 255, 0.65);
+  }
+  50% {
+    border-color: #00aaff;
+    box-shadow: 0 0 42px rgba(0, 170, 255, 0.42);
+  }
+}
+
+@keyframes hard-pulse {
+  0%,
+  100% {
+    border-color: rgba(255, 23, 68, 0.7);
+  }
+  50% {
+    border-color: #ff1744;
+    box-shadow: 0 0 48px rgba(255, 23, 68, 0.5);
+  }
 }
 .snake-panel::after {
   position: absolute;
