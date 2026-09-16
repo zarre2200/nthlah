@@ -1,612 +1,21 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
     <head>
-        <title>soal 1 pemrograman web dasar</title>
+        <title>web percobaan</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <style>
-            /* Warna dan efek dasar halaman. */
-            :root {
-                --ink: #19242a;
-                --muted: #65747a;
-                --paper: rgba(255, 253, 248, 0.93);
-                --line: #d8e0dc;
-                --mint: #1e8f79;
-                --mint-dark: #126052;
-                --coral: #e7785d;
-                --yellow: #f3c969;
-                --shadow: 0 24px 70px rgba(25, 57, 54, 0.16);
-            }
-
-            * { box-sizing: border-box; }
-
-            ::selection { color: white; background: var(--coral); }
-            :focus-visible { outline: 3px solid rgba(231, 120, 93, .48); outline-offset: 3px; }
-
-            html { min-height: 100%; }
-
-            /* Layout utama dan latar belakang dekoratif. */
-            body {
-                position: relative;
-                isolation: isolate;
-                max-width: 860px;
-                margin: 0 auto;
-                padding: 76px 74px 64px;
-                color: var(--ink);
-                background:
-                    radial-gradient(circle at 8% 12%, rgba(243, 201, 105, .55) 0 9%, transparent 10%),
-                    radial-gradient(circle at 92% 8%, rgba(231, 120, 93, .30) 0 12%, transparent 13%),
-                    linear-gradient(135deg, #edf8f1 0%, #fff8eb 55%, #f7ebe9 100%);
-                font-family: Georgia, "Times New Roman", serif;
-                line-height: 1.55;
-                min-height: 100vh;
-            }
-
-            body::before {
-                content: "";
-                position: fixed;
-                z-index: -1;
-                inset: 22px;
-                border: 1px solid rgba(30, 143, 121, .18);
-                border-radius: 28px;
-                pointer-events: none;
-            }
-
-            body::after {
-                content: "PENDAFTARAN  /  2026";
-                position: absolute;
-                top: 28px;
-                right: 74px;
-                color: var(--mint);
-                font: 700 11px/1 Arial, sans-serif;
-                letter-spacing: .22em;
-            }
-
-            h1 {
-                max-width: 580px;
-                margin: 0 0 18px;
-                color: var(--mint-dark);
-                font-size: clamp(2.45rem, 6vw, 4.6rem);
-                font-weight: 400;
-                line-height: .98;
-                letter-spacing: -.045em;
-            }
-
-            h1::after {
-                content: "";
-                display: block;
-                width: 76px;
-                height: 7px;
-                margin-top: 24px;
-                border-radius: 99px;
-                background: var(--coral);
-                transform: rotate(-2deg);
-            }
-
-            p {
-                color: var(--muted);
-                font-family: Arial, sans-serif;
-                font-size: .93rem;
-            }
-
-            body > p:first-of-type {
-                max-width: 560px;
-                margin: 0 0 30px;
-                padding: 18px 22px;
-                border-left: 4px solid var(--yellow);
-                background: rgba(255, 255, 255, .52);
-            }
-
-            body > p:nth-of-type(2) {
-                margin: 34px 0 12px;
-                color: var(--mint-dark);
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: .14em;
-            }
-
-            label {
-                display: inline-block;
-                margin: 12px 0 5px;
-                color: #34464a;
-                font: 700 .72rem/1.2 Arial, sans-serif;
-                letter-spacing: .08em;
-                text-transform: uppercase;
-            }
-
-            /* Gaya bersama untuk semua kontrol formulir. */
-            input:not([type="radio"]):not([type="file"]),
-            select,
-            textarea {
-                display: block;
-                width: 100%;
-                max-width: 580px;
-                padding: 13px 15px;
-                border: 1px solid var(--line);
-                border-radius: 10px;
-                outline: none;
-                color: var(--ink);
-                background: rgba(255, 255, 255, .75);
-                font: 16px Arial, sans-serif;
-                transition: border-color .2s, box-shadow .2s, background .2s;
-            }
-
-            textarea { resize: vertical; }
-
-            input:not([type="radio"]):not([type="file"]):focus,
-            select:focus,
-            textarea:focus {
-                border-color: var(--mint);
-                background: #fff;
-                box-shadow: 0 0 0 4px rgba(30, 143, 121, .13);
-            }
-
-            input[type="radio"] {
-                appearance: none;
-                width: 18px;
-                height: 18px;
-                margin: 12px 5px 0 10px;
-                border: 2px solid #b8c9c1;
-                border-radius: 50%;
-                vertical-align: -4px;
-                background: white;
-                cursor: pointer;
-                transition: border-color .2s, background .2s, box-shadow .2s;
-            }
-
-            input[type="radio"] + label {
-                margin: 12px 7px 0 0;
-                padding: 10px 14px;
-                border: 1px solid var(--line);
-                border-radius: 10px;
-                color: var(--muted);
-                background: rgba(255, 255, 255, .55);
-                font-weight: 400;
-                letter-spacing: 0;
-                text-transform: none;
-                cursor: pointer;
-                transition: border-color .2s, color .2s, background .2s, transform .2s;
-            }
-
-            input[type="radio"]:checked {
-                border-color: var(--coral);
-                background: var(--coral);
-                box-shadow: inset 0 0 0 4px white;
-            }
-
-            input[type="radio"]:checked + label {
-                border-color: var(--coral);
-                color: #a34f3d;
-                background: rgba(231, 120, 93, .13);
-                transform: translateY(-2px);
-            }
-
-            input[type="radio"]:hover { border-color: var(--mint); }
-            input[type="radio"]:focus-visible + label { outline: 3px solid rgba(231, 120, 93, .32); outline-offset: 3px; }
-
-            @media (max-width: 380px) {
-                input[type="radio"] + label { padding: 9px 10px; }
-            }
-
-            input[type="file"] {
-                width: 100%;
-                max-width: 580px;
-                padding: 12px;
-                border: 1px dashed var(--mint);
-                border-radius: 10px;
-                color: var(--muted);
-                background: rgba(255, 255, 255, .45);
-                font: 14px Arial, sans-serif;
-            }
-
-            input[type="file"]::file-selector-button {
-                margin-right: 10px;
-                padding: 8px 12px;
-                border: 0;
-                border-radius: 7px;
-                color: white;
-                background: var(--mint-dark);
-                cursor: pointer;
-                font: 700 11px Arial, sans-serif;
-                letter-spacing: .04em;
-            }
-
-            input[type="file"]::file-selector-button:hover { background: var(--coral); }
-
-            /* Tombol aksi utama dan tombol reset. */
-            button {
-                margin: 12px 8px 0 0;
-                padding: 13px 22px;
-                border: 0;
-                border-radius: 9px;
-                color: white;
-                background: var(--mint-dark);
-                cursor: pointer;
-                font: 700 12px Arial, sans-serif;
-                letter-spacing: .12em;
-                text-transform: uppercase;
-                box-shadow: 0 8px 18px rgba(18, 96, 82, .18);
-                transition: transform .2s, box-shadow .2s, background .2s;
-            }
-
-            button[type="reset"] {
-                color: var(--mint-dark);
-                background: transparent;
-                border: 1px solid var(--mint);
-                box-shadow: none;
-            }
-
-            button:hover {
-                background: var(--coral);
-                box-shadow: 0 12px 22px rgba(231, 120, 93, .24);
-                transform: translateY(-2px);
-            }
-
-            button[type="reset"]:hover { color: white; }
-
-            button:active { transform: translateY(1px) scale(.98); }
-
-            .form-accent {
-                position: absolute;
-                top: 155px;
-                right: 48px;
-                width: 92px;
-                height: 92px;
-                border: 1px solid rgba(30, 143, 121, .45);
-                border-radius: 50%;
-                transform: rotate(18deg);
-                pointer-events: none;
-            }
-
-            .form-accent::before {
-                content: "✦";
-                position: absolute;
-                top: 20px;
-                left: 31px;
-                color: var(--coral);
-                font-size: 28px;
-            }
-
-            .form-progress {
-                position: fixed;
-                right: 25px;
-                bottom: 24px;
-                z-index: 5;
-                width: 180px;
-                padding: 11px 13px;
-                border: 1px solid rgba(30, 143, 121, .18);
-                border-radius: 12px;
-                background: rgba(255, 253, 248, .92);
-                box-shadow: 0 12px 30px rgba(25, 57, 54, .12);
-                font: 700 10px Arial, sans-serif;
-                letter-spacing: .08em;
-            }
-
-            .form-progress span { display: block; margin-bottom: 7px; color: var(--muted); }
-            .progress-track { height: 5px; overflow: hidden; border-radius: 10px; background: #dfe9e2; }
-            .progress-value { width: 0%; height: 100%; border-radius: inherit; background: var(--coral); transition: width .3s ease; }
-
-            .notice {
-                position: fixed;
-                top: 24px;
-                left: 50%;
-                z-index: 10;
-                padding: 12px 18px;
-                border-radius: 99px;
-                color: white;
-                background: var(--mint-dark);
-                font: 700 12px Arial, sans-serif;
-                transform: translate(-50%, -150%);
-                transition: transform .3s ease;
-            }
-
-            .notice.show { transform: translate(-50%, 0); }
-
-            .status-bar {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 18px;
-                margin: -34px 0 30px;
-                padding: 10px 12px 10px 16px;
-                border: 1px solid rgba(30, 143, 121, .17);
-                border-radius: 99px;
-                background: rgba(255, 255, 255, .48);
-                box-shadow: 0 9px 24px rgba(25, 57, 54, .05);
-                font: 700 10px Arial, sans-serif;
-                letter-spacing: .1em;
-                text-transform: uppercase;
-            }
-
-            .status-live { display: inline-flex; align-items: center; gap: 8px; color: var(--mint-dark); }
-            .status-live::before {
-                content: "";
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background: var(--mint);
-                box-shadow: 0 0 0 5px rgba(30, 143, 121, .12);
-                animation: pulse 2s ease-in-out infinite;
-            }
-
-            .focus-toggle {
-                padding: 7px 11px;
-                margin: 0;
-                color: var(--mint-dark);
-                background: rgba(255, 255, 255, .58);
-                border: 1px solid rgba(30, 143, 121, .3);
-                box-shadow: none;
-                font-size: 9px;
-            }
-
-            .focus-toggle:hover { color: white; }
-
-            .identity-preview {
-                position: absolute;
-                top: 208px;
-                right: 74px;
-                width: 165px;
-                padding: 15px;
-                border-radius: 15px;
-                color: white;
-                background: linear-gradient(145deg, var(--mint-dark), #289b82);
-                box-shadow: 0 16px 30px rgba(18, 96, 82, .18);
-                transform: rotate(3deg);
-                transition: transform .25s ease;
-            }
-
-            .identity-preview:hover { transform: rotate(0) translateY(-4px); }
-            .preview-kicker { display: block; opacity: .7; font: 700 9px Arial, sans-serif; letter-spacing: .15em; }
-            .preview-name { display: block; min-height: 30px; margin-top: 8px; font: 400 20px/1.1 Georgia, serif; overflow-wrap: anywhere; }
-            .preview-line { display: block; width: 42px; height: 3px; margin-top: 13px; border-radius: 9px; background: var(--yellow); }
-
-            .focus-mode { max-width: 720px; }
-            .focus-mode .identity-preview,
-            .focus-mode .form-accent { opacity: .12; }
-            .focus-mode .status-bar { opacity: .45; }
-
-            @keyframes pulse {
-                0%, 100% { opacity: 1; transform: scale(1); }
-                50% { opacity: .55; transform: scale(.78); }
-            }
-
-            /* Penyesuaian tampilan pada layar kecil. */
-            @media (max-width: 640px) {
-                body { padding: 56px 25px 110px; }
-                body::after { right: 25px; font-size: 9px; }
-                body::before { inset: 12px; border-radius: 18px; }
-                .form-accent { top: 112px; right: 18px; width: 60px; height: 60px; opacity: .7; }
-                .form-accent::before { top: 11px; left: 20px; font-size: 20px; }
-                h1 { max-width: 80%; font-size: 3rem; }
-                .form-progress { right: 20px; bottom: 15px; left: 20px; width: auto; }
-                .status-bar { margin-top: -18px; }
-                .identity-preview { position: relative; top: auto; right: auto; width: 100%; margin: 0 0 28px; transform: rotate(-1deg); }
-            }
-
-            /* Hacker theme: terminal gelap dengan aksen neon. */
-            :root {
-                --ink: #d9ffe9;
-                --muted: #78aa91;
-                --paper: rgba(5, 18, 15, .94);
-                --line: #174d3b;
-                --mint: #00ff9d;
-                --mint-dark: #00c879;
-                --coral: #00e5ff;
-                --yellow: #c6ff00;
-                --shadow: 0 24px 70px rgba(0, 255, 157, .12);
-            }
-
-            html {
-                background: #020806;
-                scroll-behavior: smooth;
-            }
-
-            body {
-                color: var(--ink);
-                background-color: #020806;
-                background-image:
-                    linear-gradient(rgba(0, 255, 157, .045) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0, 255, 157, .045) 1px, transparent 1px),
-                    radial-gradient(circle at 50% 0%, rgba(0, 255, 157, .12), transparent 48%);
-                background-size: 28px 28px, 28px 28px, 100% 100%;
-                font-family: "Courier New", Courier, monospace;
-            }
-
-            body::before {
-                border-color: rgba(0, 255, 157, .28);
-                border-radius: 4px;
-                background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(0, 255, 157, .018) 4px 5px);
-                box-shadow: inset 0 0 80px rgba(0, 255, 157, .07), 0 0 24px rgba(0, 255, 157, .05);
-            }
-
-            body::after {
-                content: "SYSTEM ONLINE // 2026";
-                color: var(--mint);
-                font-family: "Courier New", Courier, monospace;
-                text-shadow: 0 0 10px rgba(0, 255, 157, .7);
-            }
-
-            h1 {
-                color: var(--mint);
-                font-family: "Courier New", Courier, monospace;
-                font-size: clamp(2rem, 5vw, 4rem);
-                font-weight: 700;
-                letter-spacing: .02em;
-                text-transform: uppercase;
-                text-shadow: 0 0 8px rgba(0, 255, 157, .7), 0 0 28px rgba(0, 255, 157, .22);
-            }
-
-            h1::before { content: ">_ "; color: var(--coral); }
-            h1::after {
-                width: 100%;
-                height: 2px;
-                margin-top: 22px;
-                border-radius: 0;
-                background: linear-gradient(90deg, var(--mint), transparent);
-                box-shadow: 0 0 12px var(--mint);
-                transform: none;
-            }
-
-            p { color: var(--muted); font-family: "Courier New", Courier, monospace; }
-            body > p:first-of-type {
-                border-left-color: var(--mint);
-                background: rgba(0, 255, 157, .045);
-                box-shadow: inset 0 0 25px rgba(0, 255, 157, .035);
-            }
-            body > p:nth-of-type(2) { color: var(--mint); }
-
-            label { color: #a8e8c5; font-family: "Courier New", Courier, monospace; }
-            input:not([type="radio"]):not([type="file"]), select, textarea {
-                border-color: var(--line);
-                border-radius: 3px;
-                color: var(--mint);
-                background: rgba(1, 12, 9, .88);
-                font-family: "Courier New", Courier, monospace;
-                caret-color: var(--coral);
-                box-shadow: inset 0 0 16px rgba(0, 255, 157, .035);
-            }
-            input:not([type="radio"]):not([type="file"]):focus, select:focus, textarea:focus {
-                border-color: var(--mint);
-                background: #03130d;
-                box-shadow: 0 0 0 3px rgba(0, 255, 157, .1), 0 0 16px rgba(0, 255, 157, .16);
-            }
-
-            input[type="radio"] + label {
-                border-color: var(--line);
-                border-radius: 3px;
-                color: var(--muted);
-                background: rgba(0, 255, 157, .035);
-            }
-            input[type="radio"]:checked { border-color: var(--coral); background: var(--coral); }
-            input[type="radio"]:checked + label {
-                border-color: var(--coral);
-                color: var(--coral);
-                background: rgba(0, 229, 255, .08);
-                box-shadow: 0 0 14px rgba(0, 229, 255, .12);
-            }
-
-            input[type="file"] {
-                border-color: var(--mint);
-                border-radius: 3px;
-                color: var(--muted);
-                background: rgba(0, 255, 157, .03);
-                font-family: "Courier New", monospace;
-            }
-            input[type="file"]::file-selector-button {
-                border-radius: 2px;
-                color: #00150c;
-                background: var(--mint);
-                font-family: "Courier New", monospace;
-            }
-
-            button {
-                border-radius: 3px;
-                color: #00150c;
-                background: var(--mint);
-                font-family: "Courier New", monospace;
-                box-shadow: 0 0 16px rgba(0, 255, 157, .2);
-            }
-            button:hover { color: #00150c; background: var(--coral); box-shadow: 0 0 20px rgba(0, 229, 255, .35); }
-            button[type="reset"] { color: var(--mint); border-color: var(--mint); background: transparent; }
-            button[type="reset"]:hover { color: #00150c; }
-
-            .status-bar, .form-progress, .notice {
-                border-color: rgba(0, 255, 157, .28);
-                border-radius: 3px;
-                background: rgba(2, 18, 13, .9);
-                box-shadow: 0 0 22px rgba(0, 255, 157, .08);
-            }
-            .status-live, .form-progress span { color: var(--mint); }
-            .status-live::before { background: var(--mint); box-shadow: 0 0 0 5px rgba(0, 255, 157, .12), 0 0 14px var(--mint); }
-            .focus-toggle { color: var(--mint); background: transparent; border-color: var(--mint); box-shadow: none; }
-            .identity-preview { border: 1px solid var(--mint); border-radius: 3px; background: #031a11; box-shadow: 0 0 25px rgba(0, 255, 157, .18); }
-            .preview-kicker, .preview-name { font-family: "Courier New", monospace; }
-            .preview-line { background: var(--coral); box-shadow: 0 0 9px var(--coral); }
-            .progress-track { background: #123629; }
-            .progress-value { background: var(--mint); box-shadow: 0 0 10px var(--mint); }
-            .notice { color: var(--mint); }
-
-            @media (prefers-reduced-motion: no-preference) {
-                h1 { animation: terminal-flicker 6s infinite; }
-            }
-
-            @keyframes terminal-flicker {
-                0%, 96%, 100% { opacity: 1; }
-                97% { opacity: .72; }
-                98% { opacity: .96; }
-            }
-
-            /* Panel game Snake bergaya terminal. */
-            .snake-panel {
-                position: relative;
-                margin-top: 72px;
-                padding: 22px;
-                border: 1px solid rgba(0, 255, 157, .35);
-                border-radius: 4px;
-                background: rgba(1, 12, 9, .92);
-                box-shadow: 0 0 30px rgba(0, 255, 157, .1), inset 0 0 30px rgba(0, 255, 157, .035);
-            }
-
-            .snake-panel::before {
-                content: "MINI GAME // SNAKE_PROTOCOL";
-                display: block;
-                margin-bottom: 15px;
-                color: var(--mint);
-                font-size: 11px;
-                letter-spacing: .12em;
-            }
-
-            .snake-head {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 16px;
-                margin-bottom: 14px;
-            }
-
-            .snake-head h2 { margin: 0; color: var(--coral); font-size: 18px; }
-            .snake-score { color: var(--yellow); font-size: 13px; }
-            .snake-score strong { color: var(--mint); font-size: 18px; }
-
-            #snake-canvas {
-                display: block;
-                width: min(100%, 500px);
-                aspect-ratio: 1;
-                margin: 0 auto;
-                border: 1px solid var(--mint);
-                background: #010a07;
-                box-shadow: 0 0 18px rgba(0, 255, 157, .18);
-                image-rendering: pixelated;
-            }
-
-            .snake-message {
-                min-height: 22px;
-                margin: 14px 0 4px;
-                color: var(--muted);
-                text-align: center;
-                font-size: 12px;
-            }
-
-            .snake-actions { display: flex; justify-content: center; gap: 10px; margin-top: 12px; }
-            .snake-actions button { margin: 0; padding: 9px 14px; font-size: 11px; }
-            .snake-pad { display: grid; grid-template-columns: repeat(3, 42px); justify-content: center; gap: 5px; margin-top: 16px; }
-            .snake-pad button { width: 42px; height: 36px; margin: 0; padding: 0; font-size: 16px; }
-            .snake-pad button:nth-child(1) { grid-column: 2; }
-            .snake-pad button:nth-child(2) { grid-column: 1; grid-row: 2; }
-            .snake-pad button:nth-child(3) { grid-column: 2; grid-row: 2; }
-            .snake-pad button:nth-child(4) { grid-column: 3; grid-row: 2; }
-
-            @media (max-width: 640px) {
-                .snake-panel { margin-top: 52px; padding: 16px; }
-                .snake-head { align-items: flex-start; flex-direction: column; gap: 5px; }
-            }
-        </style>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <div class="status-bar">
             <span class="status-live">Portal pendaftaran aktif</span>
             <button class="focus-toggle" type="button">Mode fokus</button>
         </div>
-        <h1>Formulir Pendaftaran Mahasiswa</h1>
+        <h1><span class="glitch-title" data-text="Formulir Pendaftaran Mahasiswa">Formulir Pendaftaran Mahasiswa</span></h1>
+        <div class="admission-meta" aria-label="Informasi pendaftaran">
+            <span class="admission-badge">PMB 2026</span>
+            <span>Gelombang 1</span>
+            <span>Batas akhir: 30 Juni 2026</span>
+        </div>
         <div class="identity-preview" aria-live="polite">
             <span class="preview-kicker">KARTU IDENTITAS</span>
             <span class="preview-name">Nama kamu</span>
@@ -616,16 +25,16 @@
             Data pribadi
         </p>
             <label>nama lengkap:</label><br>
-            <input id="nama-lengkap" type="text" name="nama lengkap" placeholder=" masukkan nama lengkap" form="registration-form" required>
+            <input id="nama-lengkap" type="text" name="nama lengkap" placeholder=" masukkan nama lengkap" form="registration-form" autocomplete="name" minlength="2" maxlength="80" pattern="[A-Za-zÃ€-Ã¿' .-]{2,80}" required>
         <br>
             <label for="nim">NIM:</label><br>
-            <input id="nim" type="number" name="masukkan NIM" placeholder="masukkan NIM" form="registration-form" required>
+            <input id="nim" type="text" name="masukkan NIM" placeholder="masukkan NIM" form="registration-form" inputmode="numeric" autocomplete="off" minlength="5" maxlength="20" pattern="[0-9]{5,20}" required>
         <br>
             <label for="email">email:</label><br>
-            <input id="email" type="email" name="contoh" placeholder="contoh@gmail.com" form="registration-form" required>
+            <input id="email" type="email" name="contoh" placeholder="contoh@gmail.com" form="registration-form" autocomplete="email" maxlength="120" required>
         <br>
             <label for="password">password:</label><br>
-            <input type="password" id="password" name="password" placeholder="" form="registration-form" minlength="8" required>
+            <input type="password" id="password" name="password" placeholder="" form="registration-form" autocomplete="new-password" minlength="12" maxlength="128" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{12,128}" title="Password harus 12-128 karakter dan memiliki huruf besar, huruf kecil, angka, serta simbol." required>
         <br>
             <label for="tanggal-lahir">tanggal lahir:</label>
             <input id="tanggal-lahir" type="date" name="tanggal lahir" form="registration-form" required>
@@ -648,12 +57,13 @@
             <br><br>
         <br>
             <label for="alamat">Alamat:</label><br>
-            <textarea id="alamat" name="alamat" rows="4" form="registration-form" required></textarea>
+            <textarea id="alamat" name="alamat" rows="4" form="registration-form" maxlength="500" required></textarea>
         <br><br>
         <p style="margin-bottom: 5px;">upload foto :</p>
-        <form id="registration-form" action="/action_page.php" method="post" enctype="multipart/form-data">
-            <input type="file" id="myfile" name="filename" form="registration-form">
+        <form id="registration-form" action="" method="post" enctype="multipart/form-data" autocomplete="on">
+            <input type="file" id="myfile" name="filename" form="registration-form" accept="image/jpeg,image/png,image/webp" aria-describedby="file-help">
         </form>
+        <p id="file-help">Format foto: JPG, PNG, atau WEBP. Maksimal 2 MB.</p>
         <br><br>
             <button type="submit" form="registration-form">simpan</button>
             <button type="reset" form="registration-form">Reset</button>
@@ -663,7 +73,20 @@
             <div class="progress-track"><div class="progress-value"></div></div>
         </aside>
         <div class="notice" role="status">Data siap disimpan.</div>
-        <section class="snake-panel" aria-label="Game Snake">
+        <nav class="game-switcher" aria-label="Pilih game">
+            <button type="button" data-game="snake" aria-selected="true">SNAKE</button>
+            <button type="button" data-game="minesweeper" aria-selected="false">MINESWEEPER</button>
+            <button type="button" data-game="tetris" aria-selected="false">TETRIS</button>
+            <button type="button" data-game="dino" aria-selected="false">DINO</button>
+            <label class="difficulty-control" for="difficulty-select">DIFFICULTY
+                <select id="difficulty-select">
+                    <option value="easy">EASY</option>
+                    <option value="medium" selected>MEDIUM</option>
+                    <option value="hard">HARD</option>
+                </select>
+            </label>
+        </nav>
+        <section class="snake-panel game-panel" data-game-panel="snake" aria-label="Game Snake">
             <div class="snake-head">
                 <h2>&gt; SNAKE.EXE</h2>
                 <div class="snake-score">SCORE: <strong id="snake-score">0</strong></div>
@@ -672,6 +95,7 @@
             <p class="snake-message" id="snake-message">Tekan MULAI, lalu gunakan tombol panah atau WASD.</p>
             <div class="snake-actions">
                 <button id="snake-start" type="button">Mulai</button>
+                <button id="snake-stop" class="stop-button" type="button">Stop</button>
                 <button id="snake-reset" type="button">Reset</button>
             </div>
             <div class="snake-pad" aria-label="Kontrol arah Snake">
@@ -681,9 +105,56 @@
                 <button type="button" data-direction="right" aria-label="Kanan">&#8594;</button>
             </div>
         </section>
+        <section class="snake-panel game-panel mine-panel" data-game-panel="minesweeper" aria-label="Game Minesweeper" hidden>
+            <div class="snake-head">
+                <h2>&gt; MINESWEEPER.EXE</h2>
+                <div class="snake-score">MINES: <strong id="mine-count">15</strong></div>
+            </div>
+            <div class="mine-board" id="mine-board" aria-label="Papan permainan Minesweeper"></div>
+            <p class="snake-message" id="mine-message">Klik kotak untuk mulai. Klik kanan untuk memasang bendera.</p>
+            <div class="snake-actions">
+                <button id="mine-stop" class="stop-button" type="button">Stop</button>
+                <button id="mine-reset" type="button">Reset</button>
+            </div>
+        </section>
+        <section class="snake-panel game-panel tetris-panel" data-game-panel="tetris" aria-label="Game Tetris" hidden>
+            <div class="snake-head">
+                <h2>&gt; TETRIS.EXE</h2>
+                <div class="snake-score">SCORE: <strong id="tetris-score">0</strong></div>
+            </div>
+            <canvas id="tetris-canvas" width="240" height="480" aria-label="Papan permainan Tetris"></canvas>
+            <p class="snake-message" id="tetris-message">Tekan MULAI, lalu susun blok dengan tombol panah.</p>
+            <div class="snake-actions">
+                <button id="tetris-start" type="button">Mulai</button>
+                <button id="tetris-stop" class="stop-button" type="button">Stop</button>
+                <button id="tetris-reset" type="button">Reset</button>
+            </div>
+            <div class="tetris-controls" aria-label="Kontrol Tetris">
+                <button type="button" data-tetris-action="left" aria-label="Kiri">&#8592;</button>
+                <button type="button" data-tetris-action="rotate" aria-label="Putar">&#8635;</button>
+                <button type="button" data-tetris-action="right" aria-label="Kanan">&#8594;</button>
+                <button type="button" data-tetris-action="drop" aria-label="Turun">&#8595;</button>
+            </div>
+        </section>
+        <section class="snake-panel game-panel dino-panel" data-game-panel="dino" aria-label="Game Dino" hidden>
+            <div class="snake-head">
+                <h2>&gt; DINO_RUN.EXE</h2>
+                <div class="snake-score">SCORE: <strong id="dino-score">0</strong></div>
+            </div>
+            <canvas id="dino-canvas" width="600" height="200" aria-label="Papan permainan Dino"></canvas>
+            <p class="snake-message" id="dino-message">Tekan MULAI, lalu lompat dengan SPASI atau tombol LOMPAT.</p>
+            <div class="snake-actions">
+                <button id="dino-start" type="button">Mulai</button>
+                <button id="dino-stop" class="stop-button" type="button">Stop</button>
+                <button id="dino-reset" type="button">Reset</button>
+            </div>
+            <div class="dino-controls" aria-label="Kontrol Dino">
+                <button id="dino-jump" type="button">Lompat</button>
+            </div>
+        </section>
         <script>
             // Referensi elemen yang dipakai oleh interaksi halaman.
-            const fields = [...document.querySelectorAll('input:not([type="radio"]), select, textarea')];
+            const fields = [...document.querySelectorAll('[form="registration-form"]:not([type="radio"])')];
             const genderOptions = [...document.querySelectorAll('input[name="jk"]')];
             const progressText = document.querySelector('.form-progress b');
             const progressValue = document.querySelector('.progress-value');
@@ -694,7 +165,10 @@
             const genderLabels = document.querySelectorAll('input[type="radio"] + label');
             // Menghitung jumlah field yang sudah diisi.
             const updateProgress = () => {
-                const completedFields = fields.filter((field) => field.value.trim()).length;
+                const completedFields = fields.filter((field) => {
+                    if (field.type === 'file') return field.files.length > 0;
+                    return field.value.trim() !== '';
+                }).length;
                 const completedGender = genderOptions.some((option) => option.checked) ? 1 : 0;
                 const totalFields = fields.length + 1;
                 const percentage = Math.round(((completedFields + completedGender) / totalFields) * 100);
@@ -716,13 +190,53 @@
                 field.addEventListener('change', updateProgress);
             });
             genderOptions.forEach((option) => option.addEventListener('change', updateProgress));
-            document.querySelector('#registration-form').addEventListener('submit', (event) => {
+            window.addEventListener('pageshow', updateProgress);
+            const registrationForm = document.querySelector('#registration-form');
+            const photoField = document.querySelector('#myfile');
+            const passwordField = document.querySelector('#password');
+            const maxPhotoSize = 2 * 1024 * 1024;
+            const allowedPhotoTypes = new Set(['image/jpeg', 'image/png', 'image/webp']);
+            const validatePhoto = () => {
+                const photo = photoField.files[0];
+                if (!photo) {
+                    photoField.setCustomValidity('');
+                    return true;
+                }
+                const isValid = allowedPhotoTypes.has(photo.type) && photo.size <= maxPhotoSize;
+                photoField.setCustomValidity(isValid ? '' : 'Foto harus JPG, PNG, atau WEBP dan berukuran maksimal 2 MB.');
+                return isValid;
+            };
+            photoField.addEventListener('change', () => {
+                validatePhoto();
+                updateProgress();
+            });
+            passwordField.addEventListener('input', () => passwordField.setCustomValidity(''));
+            registrationForm.addEventListener('submit', (event) => {
                 event.preventDefault();
+                validatePhoto();
+                if (!registrationForm.checkValidity()) {
+                    registrationForm.reportValidity();
+                    return;
+                }
                 notice.classList.add('show');
                 setTimeout(() => notice.classList.remove('show'), 2600);
             });
             document.querySelector('button[type="reset"]').addEventListener('click', () => setTimeout(updateProgress));
             updateProgress();
+
+            const difficultySelect = document.querySelector('#difficulty-select');
+            const difficultySettings = {
+                easy: { snakeGrid: 20, snakeTick: 125, mines: 15, tetrisDrop: 650, dinoSpeed: 5, dinoGravity: .7 },
+                medium: { snakeGrid: 18, snakeTick: 90, mines: 25, tetrisDrop: 380, dinoSpeed: 7, dinoGravity: .85 },
+                hard: { snakeGrid: 16, snakeTick: 65, mines: 35, tetrisDrop: 180, dinoSpeed: 9, dinoGravity: 1.05 }
+            };
+            const savedDifficulty = localStorage.getItem('registration-difficulty');
+            if (difficultySettings[savedDifficulty]) difficultySelect.value = savedDifficulty;
+            const difficulty = difficultySettings[difficultySelect.value];
+            difficultySelect.addEventListener('change', () => {
+                localStorage.setItem('registration-difficulty', difficultySelect.value);
+                window.location.reload();
+            });
 
             // Game Snake: gerakan, tabrakan, skor, dan gambar canvas.
             const snakeCanvas = document.querySelector('#snake-canvas');
@@ -730,8 +244,9 @@
             const snakeScore = document.querySelector('#snake-score');
             const snakeMessage = document.querySelector('#snake-message');
             const snakeStart = document.querySelector('#snake-start');
+            const snakeStop = document.querySelector('#snake-stop');
             const snakeReset = document.querySelector('#snake-reset');
-            const gridSize = 20;
+            const gridSize = difficulty.snakeGrid;
             const tileSize = snakeCanvas.width / gridSize;
             let snake = [];
             let food = {};
@@ -739,6 +254,7 @@
             let nextDirection = { x: 1, y: 0 };
             let score = 0;
             let snakeTimer;
+            let snakeRestartTimer;
             let gameRunning = false;
 
             const randomFood = () => {
@@ -776,7 +292,13 @@
 
             const resetSnake = () => {
                 clearInterval(snakeTimer);
-                snake = [{ x: 10, y: 10 }, { x: 9, y: 10 }, { x: 8, y: 10 }];
+                clearTimeout(snakeRestartTimer);
+                const startPosition = Math.floor(gridSize / 2);
+                snake = [
+                    { x: startPosition, y: startPosition },
+                    { x: startPosition - 1, y: startPosition },
+                    { x: startPosition - 2, y: startPosition }
+                ];
                 direction = { x: 1, y: 0 };
                 nextDirection = { x: 1, y: 0 };
                 score = 0;
@@ -791,6 +313,17 @@
                 clearInterval(snakeTimer);
                 gameRunning = false;
                 snakeMessage.textContent = `GAME OVER // skor akhir: ${score}. Tekan RESET untuk mencoba lagi.`;
+                snakeRestartTimer = setTimeout(() => {
+                    resetSnake();
+                    snakeStart.click();
+                }, 1200);
+            };
+
+            const stopSnake = () => {
+                clearInterval(snakeTimer);
+                clearTimeout(snakeRestartTimer);
+                gameRunning = false;
+                snakeMessage.textContent = 'GAME STOPPED // tekan MULAI untuk melanjutkan.';
             };
 
             const moveSnake = () => {
@@ -823,16 +356,469 @@
                 if (gameRunning) return;
                 gameRunning = true;
                 snakeMessage.textContent = 'SYSTEM RUNNING // kumpulkan data cyan.';
-                snakeTimer = setInterval(moveSnake, 125);
+                snakeTimer = setInterval(moveSnake, difficulty.snakeTick);
             });
+            snakeStop.addEventListener('click', stopSnake);
             snakeReset.addEventListener('click', resetSnake);
             document.querySelectorAll('[data-direction]').forEach((button) => button.addEventListener('click', () => changeDirection(button.dataset.direction)));
             document.addEventListener('keydown', (event) => {
+                if (document.querySelector('[data-game-panel="snake"]').hidden) return;
                 const keyDirections = { ArrowUp: 'up', w: 'up', ArrowDown: 'down', s: 'down', ArrowLeft: 'left', a: 'left', ArrowRight: 'right', d: 'right' };
                 const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
                 if (keyDirections[key]) { event.preventDefault(); changeDirection(keyDirections[key]); }
             });
             resetSnake();
+
+            // Game Minesweeper: papan, ranjau, bendera, dan kondisi menang.
+            const mineBoard = document.querySelector('#mine-board');
+            const mineCount = document.querySelector('#mine-count');
+            const mineMessage = document.querySelector('#mine-message');
+            const mineStop = document.querySelector('#mine-stop');
+            const mineReset = document.querySelector('#mine-reset');
+            const mineSize = 10;
+            const mineTotal = difficulty.mines;
+            let mineCells = [];
+            let mineRestartTimer;
+            let mineGameOver = false;
+
+            const createMinesweeper = () => {
+                clearTimeout(mineRestartTimer);
+                const minePositions = new Set();
+                while (minePositions.size < mineTotal) minePositions.add(Math.floor(Math.random() * mineSize * mineSize));
+                mineCells = Array.from({ length: mineSize * mineSize }, (_, index) => ({
+                    mine: minePositions.has(index), revealed: false, flagged: false, number: 0
+                }));
+                mineCells.forEach((cell, index) => {
+                    if (cell.mine) return;
+                    const row = Math.floor(index / mineSize);
+                    const column = index % mineSize;
+                    for (let rowOffset = -1; rowOffset <= 1; rowOffset += 1) {
+                        for (let columnOffset = -1; columnOffset <= 1; columnOffset += 1) {
+                            const neighborRow = row + rowOffset;
+                            const neighborColumn = column + columnOffset;
+                            if (neighborRow >= 0 && neighborRow < mineSize && neighborColumn >= 0 && neighborColumn < mineSize) {
+                                if (minePositions.has(neighborRow * mineSize + neighborColumn)) cell.number += 1;
+                            }
+                        }
+                    }
+                });
+                mineGameOver = false;
+                mineCount.textContent = mineTotal;
+                mineMessage.textContent = 'Klik kotak untuk mulai. Klik kanan untuk memasang bendera.';
+                drawMinesweeper();
+            };
+
+            const drawMinesweeper = () => {
+                mineBoard.replaceChildren();
+                mineCells.forEach((cell, index) => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'mine-cell';
+                    button.dataset.index = index;
+                    button.setAttribute('aria-label', `Kotak ${index + 1}`);
+                    if (cell.revealed) {
+                        button.classList.add('revealed');
+                        if (cell.mine) { button.classList.add('mine'); button.textContent = '*'; }
+                        else if (cell.number) { button.dataset.number = cell.number; button.textContent = cell.number; }
+                    } else if (cell.flagged) {
+                        button.classList.add('flagged');
+                        button.textContent = 'F';
+                    }
+                    button.addEventListener('click', () => revealMine(index));
+                    button.addEventListener('contextmenu', (event) => { event.preventDefault(); toggleFlag(index); });
+                    mineBoard.append(button);
+                });
+            };
+
+            const revealMine = (index) => {
+                const cell = mineCells[index];
+                if (mineGameOver || cell.revealed || cell.flagged) return;
+                cell.revealed = true;
+                if (cell.mine) {
+                    mineGameOver = true;
+                    mineCells.forEach((mineCell) => { if (mineCell.mine) mineCell.revealed = true; });
+                    mineMessage.textContent = 'SYSTEM FAILURE // ranjau aktif. Tekan RESET untuk mencoba lagi.';
+                    mineRestartTimer = setTimeout(createMinesweeper, 1200);
+                } else if (cell.number === 0) {
+                    const row = Math.floor(index / mineSize);
+                    const column = index % mineSize;
+                    for (let rowOffset = -1; rowOffset <= 1; rowOffset += 1) {
+                        for (let columnOffset = -1; columnOffset <= 1; columnOffset += 1) {
+                            const neighborRow = row + rowOffset;
+                            const neighborColumn = column + columnOffset;
+                            if (neighborRow >= 0 && neighborRow < mineSize && neighborColumn >= 0 && neighborColumn < mineSize) revealMine(neighborRow * mineSize + neighborColumn);
+                        }
+                    }
+                }
+                const safeCells = mineCells.filter((mineCell) => !mineCell.mine && mineCell.revealed).length;
+                if (safeCells === mineSize * mineSize - mineTotal) {
+                    mineGameOver = true;
+                    mineMessage.textContent = 'SYSTEM CLEAR // semua ranjau berhasil diamankan.';
+                }
+                drawMinesweeper();
+            };
+
+            const toggleFlag = (index) => {
+                const cell = mineCells[index];
+                if (mineGameOver || cell.revealed) return;
+                cell.flagged = !cell.flagged;
+                mineCount.textContent = mineTotal - mineCells.filter((mineCell) => mineCell.flagged).length;
+                drawMinesweeper();
+            };
+
+            const stopMinesweeper = () => {
+                clearTimeout(mineRestartTimer);
+                mineGameOver = true;
+                mineMessage.textContent = 'GAME STOPPED // tekan RESET untuk memulai ulang.';
+            };
+
+            document.querySelectorAll('[data-game]').forEach((button) => button.addEventListener('click', () => {
+                document.querySelectorAll('[data-game]').forEach((gameButton) => gameButton.setAttribute('aria-selected', gameButton === button));
+                document.querySelectorAll('[data-game-panel]').forEach((panel) => { panel.hidden = panel.dataset.gamePanel !== button.dataset.game; });
+            }));
+            mineReset.addEventListener('click', createMinesweeper);
+            mineStop.addEventListener('click', stopMinesweeper);
+            createMinesweeper();
+
+            const tetrisCanvas = document.querySelector('#tetris-canvas');
+            const tetrisContext = tetrisCanvas.getContext('2d');
+            const tetrisScore = document.querySelector('#tetris-score');
+            const tetrisMessage = document.querySelector('#tetris-message');
+            const tetrisStart = document.querySelector('#tetris-start');
+            const tetrisStop = document.querySelector('#tetris-stop');
+            const tetrisReset = document.querySelector('#tetris-reset');
+            const tetrisColumns = 10;
+            const tetrisRows = 20;
+            const tetrisCellSize = tetrisCanvas.width / tetrisColumns;
+            const tetrominoes = [
+                { shape: [[1, 1, 1, 1]], color: '#00e5ff' },
+                { shape: [[1, 1], [1, 1]], color: '#c6ff00' },
+                { shape: [[0, 1, 0], [1, 1, 1]], color: '#b36bff' },
+                { shape: [[1, 1, 0], [0, 1, 1]], color: '#00ff9d' },
+                { shape: [[0, 1, 1], [1, 1, 0]], color: '#ff5ca8' },
+                { shape: [[1, 0, 0], [1, 1, 1]], color: '#ff9d3d' },
+                { shape: [[0, 0, 1], [1, 1, 1]], color: '#4d8dff' }
+            ];
+            let tetrisBoard = [];
+            let tetrisPiece = null;
+            let tetrisTimer;
+            let tetrisRestartTimer;
+            let tetrisRunning = false;
+            let tetrisGameOver = false;
+            let tetrisPoints = 0;
+
+            const emptyTetrisBoard = () => Array.from({ length: tetrisRows }, () => Array(tetrisColumns).fill(null));
+
+            const spawnTetrisPiece = () => {
+                const template = tetrominoes[Math.floor(Math.random() * tetrominoes.length)];
+                tetrisPiece = { shape: template.shape.map((row) => [...row]), color: template.color, x: 3, y: 0 };
+                if (tetrisCollides(tetrisPiece)) endTetris();
+            };
+
+            const tetrisCollides = (piece) => piece.shape.some((row, rowIndex) => row.some((filled, columnIndex) => {
+                if (!filled) return false;
+                const x = piece.x + columnIndex;
+                const y = piece.y + rowIndex;
+                return x < 0 || x >= tetrisColumns || y >= tetrisRows || (y >= 0 && tetrisBoard[y][x]);
+            }));
+
+            const drawTetrisBlock = (x, y, color) => {
+                tetrisContext.fillStyle = color;
+                tetrisContext.shadowColor = color;
+                tetrisContext.shadowBlur = 8;
+                tetrisContext.fillRect(x * tetrisCellSize + 2, y * tetrisCellSize + 2, tetrisCellSize - 4, tetrisCellSize - 4);
+            };
+
+            const drawTetris = () => {
+                tetrisContext.fillStyle = '#010a07';
+                tetrisContext.fillRect(0, 0, tetrisCanvas.width, tetrisCanvas.height);
+                tetrisContext.strokeStyle = 'rgba(0, 255, 157, .08)';
+                for (let row = 0; row <= tetrisRows; row += 1) {
+                    tetrisContext.beginPath();
+                    tetrisContext.moveTo(0, row * tetrisCellSize);
+                    tetrisContext.lineTo(tetrisCanvas.width, row * tetrisCellSize);
+                    tetrisContext.stroke();
+                }
+                tetrisBoard.forEach((row, rowIndex) => row.forEach((color, columnIndex) => { if (color) drawTetrisBlock(columnIndex, rowIndex, color); }));
+                if (tetrisPiece) tetrisPiece.shape.forEach((row, rowIndex) => row.forEach((filled, columnIndex) => { if (filled) drawTetrisBlock(tetrisPiece.x + columnIndex, tetrisPiece.y + rowIndex, tetrisPiece.color); }));
+                tetrisContext.shadowBlur = 0;
+            };
+
+            const mergeTetrisPiece = () => {
+                tetrisPiece.shape.forEach((row, rowIndex) => row.forEach((filled, columnIndex) => {
+                    if (filled && tetrisPiece.y + rowIndex >= 0) tetrisBoard[tetrisPiece.y + rowIndex][tetrisPiece.x + columnIndex] = tetrisPiece.color;
+                }));
+            };
+
+            const clearTetrisLines = () => {
+                const remainingRows = tetrisBoard.filter((row) => row.some((cell) => !cell));
+                const cleared = tetrisRows - remainingRows.length;
+                while (remainingRows.length < tetrisRows) remainingRows.unshift(Array(tetrisColumns).fill(null));
+                tetrisBoard = remainingRows;
+                if (cleared) {
+                    tetrisPoints += [0, 100, 300, 500, 800][cleared] || cleared * 200;
+                    tetrisScore.textContent = tetrisPoints;
+                }
+            };
+
+            const lockTetrisPiece = () => {
+                mergeTetrisPiece();
+                clearTetrisLines();
+                spawnTetrisPiece();
+            };
+
+            const moveTetris = (offset) => {
+                if (!tetrisRunning || !tetrisPiece) return;
+                tetrisPiece.x += offset;
+                if (tetrisCollides(tetrisPiece)) tetrisPiece.x -= offset;
+                drawTetris();
+            };
+
+            const dropTetris = () => {
+                if (!tetrisRunning || !tetrisPiece) return;
+                tetrisPiece.y += 1;
+                if (tetrisCollides(tetrisPiece)) { tetrisPiece.y -= 1; lockTetrisPiece(); }
+                drawTetris();
+            };
+
+            const rotateTetris = () => {
+                if (!tetrisRunning || !tetrisPiece) return;
+                const previousShape = tetrisPiece.shape;
+                tetrisPiece.shape = previousShape[0].map((_, columnIndex) => previousShape.map((row) => row[columnIndex]).reverse());
+                if (tetrisCollides(tetrisPiece)) tetrisPiece.shape = previousShape;
+                drawTetris();
+            };
+
+            const endTetris = () => {
+                clearInterval(tetrisTimer);
+                tetrisRunning = false;
+                tetrisGameOver = true;
+                tetrisMessage.textContent = `GAME OVER // skor akhir: ${tetrisPoints}. Tekan RESET untuk mencoba lagi.`;
+                drawTetris();
+                tetrisRestartTimer = setTimeout(() => {
+                    resetTetris();
+                    tetrisStart.click();
+                }, 1200);
+            };
+
+            const resetTetris = () => {
+                clearInterval(tetrisTimer);
+                clearTimeout(tetrisRestartTimer);
+                tetrisBoard = emptyTetrisBoard();
+                tetrisPiece = null;
+                tetrisPoints = 0;
+                tetrisScore.textContent = tetrisPoints;
+                tetrisRunning = false;
+                tetrisGameOver = false;
+                tetrisMessage.textContent = 'Tekan MULAI, lalu susun blok dengan tombol panah.';
+                spawnTetrisPiece();
+                drawTetris();
+            };
+
+            const stopTetris = () => {
+                clearInterval(tetrisTimer);
+                clearTimeout(tetrisRestartTimer);
+                tetrisRunning = false;
+                tetrisGameOver = false;
+                tetrisMessage.textContent = 'GAME STOPPED // tekan MULAI untuk melanjutkan.';
+            };
+
+            tetrisStart.addEventListener('click', () => {
+                if (tetrisRunning || tetrisGameOver) return;
+                tetrisRunning = true;
+                tetrisMessage.textContent = 'SYSTEM RUNNING // susun blok dan bersihkan baris.';
+                tetrisTimer = setInterval(dropTetris, difficulty.tetrisDrop);
+            });
+            tetrisStop.addEventListener('click', stopTetris);
+            tetrisReset.addEventListener('click', resetTetris);
+            document.querySelectorAll('[data-tetris-action]').forEach((button) => button.addEventListener('click', () => {
+                const actions = { left: () => moveTetris(-1), right: () => moveTetris(1), rotate: rotateTetris, drop: dropTetris };
+                actions[button.dataset.tetrisAction]();
+            }));
+            document.addEventListener('keydown', (event) => {
+                if (document.querySelector('[data-game-panel="tetris"]').hidden) return;
+                const actions = { ArrowLeft: () => moveTetris(-1), ArrowRight: () => moveTetris(1), ArrowUp: rotateTetris, ArrowDown: dropTetris, ' ': dropTetris };
+                if (actions[event.key]) { event.preventDefault(); actions[event.key](); }
+            });
+            resetTetris();
+
+            const dinoCanvas = document.querySelector('#dino-canvas');
+            const dinoContext = dinoCanvas.getContext('2d');
+            const dinoScore = document.querySelector('#dino-score');
+            const dinoMessage = document.querySelector('#dino-message');
+            const dinoStart = document.querySelector('#dino-start');
+            const dinoStop = document.querySelector('#dino-stop');
+            const dinoReset = document.querySelector('#dino-reset');
+            const dinoJumpButton = document.querySelector('#dino-jump');
+            const dinoGround = 166;
+            let dino = {};
+            let dinoObstacle = {};
+            let dinoTimer;
+            let dinoRestartTimer;
+            let dinoRunning = false;
+            let dinoGameOver = false;
+            let dinoPoints = 0;
+            let dinoSpeed = difficulty.dinoSpeed;
+            const dinoGravity = difficulty.dinoGravity;
+            let dinoDistance = 0;
+            let dinoGroundOffset = 0;
+            let dinoFrame = 0;
+            const dinoClouds = [
+                { x: 120, y: 35, width: 34 },
+                { x: 360, y: 62, width: 28 },
+                { x: 540, y: 25, width: 42 }
+            ];
+            const dinoSprites = [
+                [
+                    '0000000011110000', '0000000111111000', '0000001111111100',
+                    '0000011111111110', '0000111111111111', '0001111111111000',
+                    '0011111111110000', '0011111111111110', '0011111111111111',
+                    '0001111111111111', '0000111111111110', '0000011111111000',
+                    '0000011000011000', '0000110000110000', '0001100001100000',
+                    '0011000000110000'
+                ],
+                [
+                    '0000000011110000', '0000000111111000', '0000001111111100',
+                    '0000011111111110', '0000111111111111', '0001111111111000',
+                    '0011111111110000', '0011111111111110', '0011111111111111',
+                    '0001111111111111', '0000111111111110', '0000011111111000',
+                    '0000011000011000', '0000110000110000', '0001100001100000',
+                    '0011000000110000'
+                ]
+            ];
+            const resetDinoObstacle = () => {
+                dinoObstacle = {
+                    x: dinoCanvas.width + 100 + Math.floor(Math.random() * 120),
+                    width: 20 + Math.floor(Math.random() * 20),
+                    height: 34 + Math.floor(Math.random() * 26),
+                    count: 1 + Math.floor(Math.random() * 3)
+                };
+            };
+
+            const drawDino = () => {
+                dinoContext.fillStyle = '#f7f7f7';
+                dinoContext.fillRect(0, 0, dinoCanvas.width, dinoCanvas.height);
+                dinoContext.fillStyle = '#c6c6c6';
+                dinoClouds.forEach((cloud) => {
+                    dinoContext.fillRect(cloud.x, cloud.y, cloud.width, 4);
+                    dinoContext.fillRect(cloud.x + 8, cloud.y - 4, cloud.width - 16, 4);
+                });
+                dinoContext.strokeStyle = '#535353';
+                for (let line = -dinoGroundOffset; line < dinoCanvas.width; line += 24) {
+                    dinoContext.beginPath();
+                    dinoContext.moveTo(line, dinoGround + 8);
+                    dinoContext.lineTo(line + 12, dinoGround + 8);
+                    dinoContext.stroke();
+                }
+                dinoContext.strokeStyle = '#535353';
+                dinoContext.beginPath();
+                dinoContext.moveTo(0, dinoGround + 8);
+                dinoContext.lineTo(dinoCanvas.width, dinoGround + 8);
+                dinoContext.stroke();
+
+                const dinoX = dino.x;
+                const dinoY = dino.y;
+                const pixelSize = 6;
+                dinoContext.fillStyle = '#111';
+                dinoSprites[dinoFrame].forEach((row, rowIndex) => row.split('').forEach((pixel, columnIndex) => {
+                    if (pixel === '1') {
+                        dinoContext.fillRect(
+                            dinoX + columnIndex * pixelSize,
+                            dinoY + rowIndex * pixelSize,
+                            pixelSize,
+                            pixelSize
+                        );
+                    }
+                }));
+
+                for (let cactus = 0; cactus < dinoObstacle.count; cactus += 1) {
+                    const cactusX = dinoObstacle.x + cactus * 16;
+                    const cactusTop = dinoGround - dinoObstacle.height + (cactus % 2) * 7;
+                    dinoContext.fillRect(cactusX + 6, cactusTop, 6, dinoGround - cactusTop + 8);
+                    dinoContext.fillRect(cactusX, cactusTop + 12, 7, 5);
+                    dinoContext.fillRect(cactusX + 11, cactusTop + 20, 7, 5);
+                }
+            };
+
+            const dinoHitsObstacle = () => dino.x + 92 > dinoObstacle.x + 3 && dino.x + 8 < dinoObstacle.x + dinoObstacle.width + dinoObstacle.count * 16 && dino.y + 92 > dinoGround - dinoObstacle.height + 3;
+
+            const jumpDino = () => {
+                if (!dinoRunning || dino.y < dinoGround - dino.height) return;
+                dino.velocity = -13;
+            };
+
+            const moveDino = () => {
+                dino.velocity += dinoGravity;
+                dino.y += dino.velocity;
+                if (dino.y > dinoGround - dino.height) {
+                    dino.y = dinoGround - dino.height;
+                    dino.velocity = 0;
+                }
+                dinoObstacle.x -= dinoSpeed;
+                if (dinoObstacle.x + dinoObstacle.width < 0) {
+                    resetDinoObstacle();
+                }
+                dinoDistance += dinoSpeed;
+                dinoPoints = Math.floor(dinoDistance / 5);
+                dinoScore.textContent = String(dinoPoints).padStart(5, '0');
+                dinoGroundOffset = (dinoGroundOffset + dinoSpeed) % 24;
+                dinoFrame = Math.floor(dinoDistance / 7) % 2;
+                if (dinoPoints > 0 && dinoPoints % 75 === 0) {
+                    dinoSpeed = Math.min(16, dinoSpeed + .08);
+                }
+                if (dinoHitsObstacle()) endDino();
+                drawDino();
+            };
+
+            const endDino = () => {
+                clearInterval(dinoTimer);
+                dinoRunning = false;
+                dinoGameOver = true;
+                dinoMessage.textContent = `GAME OVER // skor akhir: ${dinoPoints}. Tekan RESET untuk mencoba lagi.`;
+                drawDino();
+                dinoRestartTimer = setTimeout(() => {
+                    resetDino();
+                    dinoStart.click();
+                }, 1200);
+            };
+
+            const resetDino = () => {
+                clearInterval(dinoTimer);
+                clearTimeout(dinoRestartTimer);
+                dino = { x: 72, y: dinoGround - 96, width: 92, height: 96, velocity: 0 };
+                dinoPoints = 0;
+                dinoDistance = 0;
+                dinoSpeed = difficulty.dinoSpeed;
+                dinoScore.textContent = '00000';
+                dinoRunning = false;
+                dinoGameOver = false;
+                dinoMessage.textContent = 'Tekan MULAI, lalu lompat dengan SPASI atau tombol LOMPAT.';
+                resetDinoObstacle();
+                drawDino();
+            };
+
+            const stopDino = () => {
+                clearInterval(dinoTimer);
+                clearTimeout(dinoRestartTimer);
+                dinoRunning = false;
+                dinoGameOver = false;
+                dinoMessage.textContent = 'GAME STOPPED // tekan MULAI untuk melanjutkan.';
+            };
+
+            dinoStart.addEventListener('click', () => {
+                if (dinoRunning || dinoGameOver) return;
+                dinoRunning = true;
+                dinoMessage.textContent = 'SYSTEM RUNNING // hindari semua cactus.';
+                dinoTimer = setInterval(moveDino, 30);
+            });
+            dinoStop.addEventListener('click', stopDino);
+            dinoReset.addEventListener('click', resetDino);
+            dinoJumpButton.addEventListener('click', jumpDino);
+            document.addEventListener('keydown', (event) => {
+                if (document.querySelector('[data-game-panel="dino"]').hidden) return;
+                if (event.code === 'Space' || event.key === 'ArrowUp') { event.preventDefault(); jumpDino(); }
+            });
+            resetDino();
         </script>
     </body>
 </html>
